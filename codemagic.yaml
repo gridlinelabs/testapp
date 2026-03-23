@@ -41,10 +41,4 @@ workflows:
       - build/app/outputs/bundle/release/app-release.aab
       - flutter_drive.log
 
-    publishing:
-      email:
-        recipients:
-          - $CM_SUBMITTER_EMAIL
-        notify:
-          success: true
-          failure: true
+
