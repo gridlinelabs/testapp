@@ -1,0 +1,50 @@
+workflows:
+  android-release:
+    name: BillSplit AI — Android Release
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      android_signing:
+        - billsplit_keystore
+      vars:
+        PACKAGE_NAME: "com.billsplitai.app"
+        CLAUDE_API_KEY: $CLAUDE_API_KEY  # Set in Codemagic Environment Variables
+
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: 'claude/billsplit-ai-app-2gLIQ'
+          include: true
+
+    scripts:
+      - name: Set up local.properties
+        script: |
+          echo "flutter.sdk=$FLUTTER_ROOT" > "$CM_BUILD_DIR/android/local.properties"
+
+      - name: Get Flutter packages
+        script: flutter pub get
+
+      - name: Build Android APK
+        script: |
+          flutter build apk --release \
+            --dart-define=CLAUDE_API_KEY=$CLAUDE_API_KEY
+
+      - name: Build Android App Bundle (for Play Store)
+        script: |
+          flutter build appbundle --release \
+            --dart-define=CLAUDE_API_KEY=$CLAUDE_API_KEY
+
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/bundle/release/app-release.aab
+      - flutter_drive.log
+
+    publishing:
+      email:
+        recipients:
+          - $CM_SUBMITTER_EMAIL
+        notify:
+          success: true
+          failure: true
