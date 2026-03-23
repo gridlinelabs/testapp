@@ -4,8 +4,6 @@ workflows:
     max_build_duration: 60
     environment:
       flutter: stable
-      android_signing:
-        - billsplit_keystore
       vars:
         PACKAGE_NAME: "com.billsplitai.app"
         CLAUDE_API_KEY: $CLAUDE_API_KEY  # Set in Codemagic Environment Variables
@@ -26,19 +24,13 @@ workflows:
       - name: Get Flutter packages
         script: flutter pub get
 
-      - name: Build Android APK
+      - name: Build Android APK (debug-signed)
         script: |
-          flutter build apk --release \
-            --dart-define=CLAUDE_API_KEY=$CLAUDE_API_KEY
-
-      - name: Build Android App Bundle (for Play Store)
-        script: |
-          flutter build appbundle --release \
+          flutter build apk --debug \
             --dart-define=CLAUDE_API_KEY=$CLAUDE_API_KEY
 
     artifacts:
-      - build/app/outputs/flutter-apk/app-release.apk
-      - build/app/outputs/bundle/release/app-release.aab
+      - build/app/outputs/flutter-apk/app-debug.apk
       - flutter_drive.log
 
 
