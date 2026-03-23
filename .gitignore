@@ -1,0 +1,62 @@
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+pubspec.lock
+
+# Android
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.gradle
+local.properties
+.idea/
+.navigation
+captures/
+*.iml
+*.hprof
+android/.gradle
+android/app/release/
+android/key.properties
+release-key.jks
+*.keystore
+*.jks
+
+# iOS
+*.mode1v3
+*.mode2v3
+*.moved-aside
+*.pbxuser
+*.perspectivefile
+.DS_Store
+xcuserdata
+*.xccheckout
+*.xcscmblueprint
+iOS/Flutter/App.framework
+iOS/Flutter/Flutter.framework
+iOS/.symlinks/
+iOS/Pods/
+
+# Firebase
+google-services.json
+GoogleService-Info.plist
+
+# Secrets
+.env
+.env.local
+*.secret
+secrets.json
+
+# IDE
+.idea/
+.vscode/settings.json
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
